@@ -1,31 +1,16 @@
 class LandmarksController < ApplicationController
 
-  get '/landmarks' do
-    erb :"landmarks/index"
-  end
+  get('/landmarks') {erb :"landmarks/index"}
 
-  get '/landmarks/new' do
-    erb :"landmarks/new"
-  end
-  get '/landmarks/:id' do
-    @landmark = Landmark.find_by_id(params[:id])
-    erb :'landmarks/show'
-  end
+  get('/landmarks/new') {erb :"landmarks/new"}
 
-  post '/landmarks' do
-    Landmark.create(params["landmark"])
-    erb :"/landmarks/index"
-  end 
+  get('/landmarks/:id') {@landmark = Landmark.find_by_id(params[:id]);erb :'landmarks/show'}
 
-  get '/landmarks/:id/edit' do
-    @landmark = Landmark.find_by_id(params[:id])
-    erb :'landmarks/edit'
-  end
+  post('/landmarks') {Landmark.create(params["landmark"]);erb :"/landmarks/index"}
 
-  post '/landmarks/:id' do
-    @landmark = Landmark.find_by_id(params[:id])
-    @landmark.update(params[:landmark])
-    @landmark.save
-    erb :'/landmarks/#{@landmark.id}'
-  end
+
+  get('/landmarks/:id/edit'){@landmark = Landmark.find_by_id(params[:id]);erb :'landmarks/edit'} 
+
+  post('/landmarks/:id'){@landmark = Landmark.find_by_id(params[:id]);@landmark.update(params[:landmark]);@landmark.save;erb :'/landmarks/#{@landmark.id}'}
+  
 end
